@@ -1,7 +1,16 @@
-import React from "react";
+import React from 'react';
 
-export const Task = ({task}) =>{
-    return (
-        <li>{task}</li>
-    )
+export const Task = ({ task, onCheckBoxClick }) => {
+  return (
+    <li>
+      <input 
+        type='checkBox' 
+        onClick={()=>onCheckBoxClick(task)} 
+        readOnly
+        checked={!!task.isChecked}
+      />
+      <span>{task.text}</span>
+
+    </li>
+  );
 };
