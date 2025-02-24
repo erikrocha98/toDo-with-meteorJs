@@ -9,6 +9,10 @@ export const App = () => {
   const[hideTask, setHideTask]=useState(false);  
   const hideTaskFilter = {isChecked: {$ne: true}};
   const tasks = useTracker(() => TasksCollection.find(hideTask? hideTaskFilter: {}, {sort:{createdAt: -1}}).fetch());
+  const pendingTasksCount= useTracker(()=>TasksCollection.find(hideTaskFilter).count());
+  const pendingTasksTitle= `${
+    pendingTasksCount? `(${pendingTasksCount})`: ''
+  }`;
 
 
   const handleToggleChecked = ({_id, isChecked}) =>{
@@ -27,7 +31,10 @@ export const App = () => {
       <header>
         <div className="app-bar">
           <div className="app-header">
-            <h1>📝️ To Do List</h1>
+            <h1>
+              📝️ To Do List
+              {pendingTasksTitle}  
+            </h1>
           </div>
         </div>
       </header>
