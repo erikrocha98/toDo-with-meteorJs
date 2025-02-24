@@ -3,13 +3,14 @@ import { useTracker, useSubscribe} from "meteor/react-meteor-data";
 import { TasksCollection } from "/imports/api/tasksCollection.js";
 import { Task } from "./Task";
 import { TaskForm } from "./TaskForm";
+import { LoginForm } from "./LoginForm";
 
 export const App = () => {
   const isLoading = useSubscribe("tasks");
   const[hideTask, setHideTask]=useState(false);  
-  const hideTaskFilter = {isChecked: {$ne: true}};
-  const tasks = useTracker(() => TasksCollection.find(hideTask? hideTaskFilter: {}, {sort:{createdAt: -1}}).fetch());
-  const pendingTasksCount= useTracker(()=>TasksCollection.find(hideTaskFilter).count());
+  const hideCompletedFilter = {isChecked: {$ne: true}};
+  const tasks = useTracker(() => TasksCollection.find(hideTask? hideCompletedFilter: {}, {sort:{createdAt: -1}}).fetch());
+  const pendingTasksCount= useTracker(()=>TasksCollection.find(hideCompletedFilter).count());
   const pendingTasksTitle= `${
     pendingTasksCount? `(${pendingTasksCount})`: ''
   }`;
@@ -35,6 +36,7 @@ export const App = () => {
               📝️ To Do List
               {pendingTasksTitle}  
             </h1>
+            <LoginForm/>
           </div>
         </div>
       </header>
