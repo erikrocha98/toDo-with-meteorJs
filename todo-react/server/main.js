@@ -9,7 +9,7 @@ const insertTask = (taskText) =>
 
 
 const SEED_USERNAME= 'erik';
-const SEED_PASSWORD= 'password';
+const SEED_PASSWORD= '207098';
 
 Meteor.startup(async () => {
 

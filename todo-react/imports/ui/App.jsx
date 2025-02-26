@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { Fragment, useState } from "react";
 import { useTracker, useSubscribe} from "meteor/react-meteor-data";
 import { TasksCollection } from "/imports/api/tasksCollection.js";
 import { Task } from "./Task";
@@ -14,6 +14,8 @@ export const App = () => {
   const pendingTasksTitle= `${
     pendingTasksCount? `(${pendingTasksCount})`: ''
   }`;
+
+  const user = useTracker(()=>Meteor.user());
 
 
   const handleToggleChecked = ({_id, isChecked}) =>{
@@ -36,22 +38,27 @@ export const App = () => {
               📝️ To Do List
               {pendingTasksTitle}  
             </h1>
-            <LoginForm/>
           </div>
         </div>
       </header>
       <div className="main">
-        <TaskForm/>
-        <div className="filter">
-          <button onClick={()=>setHideTask(!hideTask)}>
-            {hideTask? 'Show All':'Hide Completed'}
-          </button>
-        </div>
-        <ul className="tasks">
-          {tasks.map((task) => (
-            <Task key={task._id} task={task} onCheckBoxClick={handleToggleChecked} onDeleteClick={handleDelete}/>
-          ))}
-        </ul>
+        {user ? (
+          <Fragment>
+            <TaskForm/>
+            <div className="filter">
+              <button onClick={()=>setHideTask(!hideTask)}>
+                {hideTask? 'Show All':'Hide Completed'}
+              </button>
+            </div>
+            <ul className="tasks">
+              {tasks.map((task) => (
+                <Task key={task._id} task={task} onCheckBoxClick={handleToggleChecked} onDeleteClick={handleDelete}/>
+              ))}
+            </ul>
+          </Fragment>
+        ): (
+          <LoginForm/>
+        )}
       </div>
     </div>
   );
