@@ -1,21 +1,39 @@
 import React, { Fragment, useState } from "react";
 import { useTracker, useSubscribe} from "meteor/react-meteor-data";
-import { TasksCollection } from "/imports/api/tasksCollection.js";
+import { TasksCollection } from "../api/tasksCollection.js";
 import { Task } from "./Task";
 import { TaskForm } from "./TaskForm";
 import { LoginForm } from "./LoginForm";
 
 export const App = () => {
+  const [hideCompleted, setHideCompleted] = useState(false);
+  const user = useTracker(() => Meteor.user());
+
   const isLoading = useSubscribe("tasks");
-  const[hideTask, setHideTask]=useState(false);  
   const hideCompletedFilter = {isChecked: {$ne: true}};
-  const tasks = useTracker(() => TasksCollection.find(hideTask? hideCompletedFilter: {}, {sort:{createdAt: -1}}).fetch());
-  const pendingTasksCount= useTracker(()=>TasksCollection.find(hideCompletedFilter).count());
+
+  
+
+  
+  const tasks = useTracker(() => {
+    if(!user){
+      return [];
+    }
+    return (
+      TasksCollection.find(hideCompleted? hideCompletedFilter: {}, {sort:{createdAt: -1}}).fetch()
+    );
+  });
+
+  const pendingTasksCount= useTracker(()=>{
+    if(!user){
+      return 0;
+    }
+    return TasksCollection.find(hideCompletedFilter).count()
+  });
+
   const pendingTasksTitle= `${
     pendingTasksCount? `(${pendingTasksCount})`: ''
   }`;
-
-  const user = useTracker(()=>Meteor.user());
 
 
   const handleToggleChecked = ({_id, isChecked}) =>{
@@ -25,9 +43,13 @@ export const App = () => {
     Meteor.callAsync("tasks.delete",{_id});
   }
 
+  const logout = () => Meteor.logout();
+
+
   if (isLoading()) {
     return <div>Loading...</div>;
   }
+
 
   return (
     <div className="app">
@@ -44,10 +66,13 @@ export const App = () => {
       <div className="main">
         {user ? (
           <Fragment>
+            <div className="user" onClick={logout}>
+                {user.username};
+            </div>
             <TaskForm/>
             <div className="filter">
-              <button onClick={()=>setHideTask(!hideTask)}>
-                {hideTask? 'Show All':'Hide Completed'}
+              <button onClick={()=>setHideCompleted(!hideCompleted)}>
+                {hideCompleted? 'Show All':'Hide Completed'}
               </button>
             </div>
             <ul className="tasks">

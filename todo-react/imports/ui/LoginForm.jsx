@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import {Meteor} from 'meteor/meteor';
+import {Meteor} from "meteor/meteor";
 
 export const LoginForm = () =>{
     const[username, setUsername]=useState("");
@@ -7,15 +7,21 @@ export const LoginForm = () =>{
 
     const submit = (e) =>{
         e.preventDefault();
-        try {
-            Meteor.loginWithPassword(username,password);
-        } catch (error) {
-            console.log(error);
-        }
+        console.log("Tentando logar com:", username, password);
+
+        Meteor.loginWithPassword(username,password, (error)=>{
+            if(error){
+                console.error("Erro ao fazer login", error.reason);
+            }else{
+                console.log("login bem sucedido");
+            }
+
+        });
+        
     };
 
     return(
-        <form className="login-form" onSubmit={submit}>
+        <form onSubmit={submit} className="login-form">
             <div>
                 <label htmlFor="username">Username</label>
                 <input 
@@ -38,5 +44,5 @@ export const LoginForm = () =>{
                 <button type="submit">Log in</button>
             </div>
         </form>
-    )
-}
+    );
+};

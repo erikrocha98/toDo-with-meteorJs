@@ -4,22 +4,39 @@ import {Accounts} from 'meteor/accounts-base';
 import "../imports/api/tasksPublications.js";
 import "../imports/api/tasksMethods.js";
 
-const insertTask = (taskText) =>
-  TasksCollection.insertAsync({ text: taskText });
+const insertTask = (taskText,user) =>{
+  TasksCollection.insertAsync({ 
+    text: taskText,
+    userId: user._id,
+    createdAt: new Date(),
+   });
+}
 
 
-const SEED_USERNAME= 'erik';
-const SEED_PASSWORD= '207098';
+const SEED_USERNAME= "erik";
+const SEED_PASSWORD= "impala";
+
 
 Meteor.startup(async () => {
+  let user = await Accounts.findUserByUsername(SEED_USERNAME);
+  console.log("Usuário encontrado no banco:", user);
 
-  if(!(await Accounts.findUserByUsername(SEED_USERNAME))){
-    await Accounts.createUser({
+  if (!user) {
+    const userId = await Accounts.createUser({
       username: SEED_USERNAME,
-      password:SEED_PASSWORD
+      password: SEED_PASSWORD,
     });
+
+    console.log("Usuário criado com ID:", userId);
+    user = await Accounts.findUserByUsername(SEED_USERNAME);
+    console.log("Usuário após criação:", user);
   }
-  
+
+    // Buscar o usuário novamente após a criação
+    user = await Accounts.findUserByUsername(SEED_USERNAME);
+    console.log(Accounts.findUserByUsername("erik"));
+
+
   if ((await TasksCollection.find().countAsync()) === 0) {
     [
       "First Task",
@@ -29,6 +46,6 @@ Meteor.startup(async () => {
       "Fifth Task",
       "Sixth Task",
       "Seventh Task",
-    ].forEach(insertTask);
+    ].forEach((taskText) => insertTask(taskText, user));
   }
 });

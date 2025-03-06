@@ -1,5 +1,6 @@
 import React from "react";
 import { useState } from "react";
+import {Meteor} from "meteor/meteor";
 
 export const TaskForm = () =>{
     const [text,setText] = useState("");
@@ -19,12 +20,12 @@ export const TaskForm = () =>{
             });          
         } catch (error) {
             console.log({error: error.message})
-        }
+        };
 
 
         //Após consumir o texto colocado no campo de input, o campo é resetado.
         setText("");
-    }
+    };
 
     return (
         <form className="task-form" onSubmit={handleSubmit}>
