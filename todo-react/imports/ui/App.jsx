@@ -4,6 +4,7 @@ import { TasksCollection } from "../api/tasksCollection.js";
 import { Task } from "./Task";
 import { TaskForm } from "./TaskForm";
 import { LoginForm } from "./LoginForm";
+import { Navigate } from "react-router-dom";
 
 export const App = () => {
   const [hideCompleted, setHideCompleted] = useState(false);
@@ -49,6 +50,13 @@ export const App = () => {
   if (isLoading()) {
     return <div>Loading...</div>;
   }
+
+  /* if (user){
+    return <Navigate to="/welcome"/>
+  }
+  else {
+    return <LoginForm/>
+  } */
 
 
   return (

@@ -23,6 +23,9 @@ export const LoginForm = () =>{
     return(
         <form onSubmit={submit} className="login-form">
             <div>
+                Olá, caro usuário, seja bem vindo ao To do feito no meteorJs!
+            </div>
+            <div>
                 <label htmlFor="username">Username</label>
                 <input 
                     type="text" 
