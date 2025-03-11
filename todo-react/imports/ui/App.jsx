@@ -3,12 +3,13 @@ import { useTracker, useSubscribe} from "meteor/react-meteor-data";
 import { TasksCollection } from "../api/tasksCollection.js";
 import { Task } from "./Task";
 import { TaskForm } from "./TaskForm";
-import { LoginForm } from "./LoginForm";
 import { Navigate } from "react-router-dom";
+
 
 export const App = () => {
   const [hideCompleted, setHideCompleted] = useState(false);
   const user = useTracker(() => Meteor.user());
+  const [redirectToLogin, setRedirectToLogin] = useState(false);
 
   const isLoading = useSubscribe("tasks");
   const hideCompletedFilter = {isChecked: {$ne: true}};
@@ -44,20 +45,19 @@ export const App = () => {
     Meteor.callAsync("tasks.delete",{_id});
   }
 
-  const logout = () => Meteor.logout();
+  const logout = () => {
+    Meteor.logout()
+    setRedirectToLogin(true);
+  };
+
+  if (redirectToLogin){
+    return <Navigate to="/"/>
+  }
 
 
   if (isLoading()) {
     return <div>Loading...</div>;
   }
-
-  /* if (user){
-    return <Navigate to="/welcome"/>
-  }
-  else {
-    return <LoginForm/>
-  } */
-
 
   return (
     <div className="app">
@@ -72,7 +72,6 @@ export const App = () => {
         </div>
       </header>
       <div className="main">
-        {user ? (
           <Fragment>
             <div className="user" onClick={logout}>
                 {user.username};
@@ -89,9 +88,6 @@ export const App = () => {
               ))}
             </ul>
           </Fragment>
-        ): (
-          <LoginForm/>
-        )}
       </div>
     </div>
   );
