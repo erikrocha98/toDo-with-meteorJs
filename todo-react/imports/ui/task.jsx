@@ -3,7 +3,7 @@ import { Avatar, IconButton, List, ListItem, ListItemAvatar, ListItemText } from
 import DeleteIcon from '@mui/icons-material/Delete';
 import FolderIcon from '@mui/icons-material/Folder';
 import EditIcon from '@mui/icons-material/Edit';
-import Checkbox from '@mui/material';
+import Checkbox from '@mui/material/Checkbox';
 
 export const Task = ({ task, onCheckBoxClick, onDeleteClick }) => {
   return (

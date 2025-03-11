@@ -5,7 +5,6 @@ import { Task } from "./Task";
 import { TaskForm } from "./TaskForm";
 import { Navigate } from "react-router-dom";
 import List from "@mui/material/List";
-import { ListItem } from "@mui/material/ListItem";
 
 
 export const App = () => {
@@ -84,11 +83,11 @@ export const App = () => {
                 {hideCompleted? 'Show All':'Hide Completed'}
               </button>
             </div>
-            <ul className="tasks">
+            <List>
               {tasks.map((task) => (
                 <Task key={task._id} task={task} onCheckBoxClick={handleToggleChecked} onDeleteClick={handleDelete}/>
               ))}
-            </ul>
+            </List>
           </Fragment>
       </div>
     </div>
