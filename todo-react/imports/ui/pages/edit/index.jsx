@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, TextField } from "@mui/material";
+import { Box, TextField, Button } from "@mui/material";
 
 export const EditPage = () =>{
     return (
@@ -13,34 +13,44 @@ export const EditPage = () =>{
                 <TextField 
                     required
                     id=""
-                    label=""
-                    defaultValue="Hello"
-                />
-                <TextField 
-                    required
-                    id=""
-                    label=""
-                    defaultValue="Hello"
-                />
-                <TextField 
-                    required
-                    id=""
-                    label=""
-                    defaultValue="Hello"
-                />
-                <TextField 
-                    required
-                    id=""
-                    label=""
-                    defaultValue="Hello"
-                />
-                <TextField 
-                    required
-                    id=""
-                    label=""
-                    defaultValue="Hello"
+                    label="Nome"
                 />
             </div>
+            <div>
+                <TextField 
+                    required
+                    id=""
+                    label="Descrição"
+                />
+            </div>
+            <div>
+                <TextField 
+                    required
+                    id=""
+                    label="Situação"
+                />
+            </div>
+            <div>
+                <TextField 
+                    required
+                    id=""
+                    type="date"
+                />
+            </div>
+            <div>
+                <TextField 
+                    required
+                    id=""
+                    label="Usuários"
+                />
+            </div>
+
+            <Button>
+                Cancelar
+            </Button>
+            <Button type="onSubmit">
+                Salvar
+            </Button>
             
         </Box>
     )
