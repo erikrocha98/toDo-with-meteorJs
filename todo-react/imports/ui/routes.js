@@ -2,8 +2,9 @@ import React from "react";
 import {BrowserRouter as Router, Routes, Route} from "react-router-dom";
 import {WelcomePage} from "../ui/pages/welcome/welcome";
 import {App} from "./App";
-import {TaskList} from "./pages/tasklist/taskList";
 import {Login} from "./pages/login/login";
+import { NotFound } from "./pages/notFound";
+import { EditPage } from "./pages/edit";
 
 
 export default function AppRoutes() {
@@ -12,8 +13,9 @@ export default function AppRoutes() {
             <Routes>
                 <Route path="/" element={<Login/>} />
                 <Route path="/welcome" element={<WelcomePage/>}/>
-                <Route path ="/tasks" element={<TaskList/>}/>
                 <Route path="/app" element={<App/>}/>
+                <Route path="/edit" element={<EditPage/>}/>
+                <Route path="*" element={<NotFound/>}/>
             </Routes>
         </Router>
     );

@@ -85,7 +85,7 @@ export const App = () => {
             </div>
             <List>
               {tasks.map((task) => (
-                <Task key={task._id} task={task} onCheckBoxClick={handleToggleChecked} onDeleteClick={handleDelete}/>
+                <Task key={task._id} task={task} user={user} onCheckBoxClick={handleToggleChecked} onDeleteClick={handleDelete}/>
               ))}
             </List>
           </Fragment>

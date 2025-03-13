@@ -1,11 +1,11 @@
 import React from 'react';
 import { Avatar, IconButton, List, ListItem, ListItemAvatar, ListItemText } from "@mui/material";
 import DeleteIcon from '@mui/icons-material/Delete';
-import FolderIcon from '@mui/icons-material/Folder';
 import EditIcon from '@mui/icons-material/Edit';
 import Checkbox from '@mui/material/Checkbox';
+import AssignmentIcon from '@mui/icons-material/Assignment';
 
-export const Task = ({ task, onCheckBoxClick, onDeleteClick }) => {
+export const Task = ({ task, onCheckBoxClick, onDeleteClick, user}) => {
   return (
     <ListItem
       secondaryAction={
@@ -31,25 +31,15 @@ export const Task = ({ task, onCheckBoxClick, onDeleteClick }) => {
     >
       <ListItemAvatar>
         <Avatar>
-          <FolderIcon />
+          <AssignmentIcon />
         </Avatar>
       </ListItemAvatar>
       <Checkbox
         checked={!!task.isChecked}
         onClick={() => onCheckBoxClick(task)}
       />
-      <ListItemText primary={task.text} secondary="Texto Secundário" />
+      <ListItemText primary={task.text} secondary={user.username} />
     </ListItem>
-    /* <li>
-      <input 
-        type='checkBox' 
-        onClick={()=>onCheckBoxClick(task)} 
-        readOnly
-        checked={!!task.isChecked}
-      />
-      <span>{task.text}</span>
-      <button onClick={()=>onDeleteClick(task)}>&times;</button>
-
-    </li> */
+    
   );
 };
