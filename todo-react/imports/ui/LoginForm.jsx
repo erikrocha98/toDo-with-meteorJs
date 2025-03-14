@@ -1,18 +1,29 @@
 import React, { useState } from "react";
 import {Meteor} from "meteor/meteor";
-import { TextField,Box,Button } from "@mui/material";
+import { TextField,Box,Button,Container } from "@mui/material";
 import styled from "styled-components";
+import Paper from "@mui/material/Paper";
 
-const BoxForm = styled(Box)`
+const ContainerForm = styled(Box)`
     display: flex;
     flex-direction: column;
     justify-content:center;
     align-items: center;
-    border: 1px solid black;
-    height: 100vh;
+    min-height: 100vh;
+    border:1px solid black
+`
+const BoxForm = styled(Paper)`
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    height:50vh;
+    width:100%;
+    max-width:500px;
 `
 const WelcomeTitle = styled.h1`
     font-size: 16px;
+    font-weight:400;
 `
 
 
@@ -37,41 +48,72 @@ export const LoginForm = () =>{
     };
 
     return(
-        <BoxForm 
+        <ContainerForm 
             component="form"
             autoComplete="off"
             onSubmit={submit}
         >
-            <WelcomeTitle>
-                Olá, caro usuário, seja bem vindo ao To do app com meteorJs!
-            </WelcomeTitle>
-            <div>
-                <TextField
-                    required
-                    id="username"
-                    type="text"
-                    label="Username"
-                    placeholder="Username"
-                    onChange={(e)=>setUsername(e.target.value)}
-                    sx={{mb:"8px"}}
-                />
-            </div>
-            <div>
-                <TextField
-                    required
-                    id="password"
-                    type="password"
-                    label="Password"
-                    placeholder="Password"
-                    onChange={(e)=>setPassword(e.target.value)}
-                    sx={{mb:"8px"}}    
-                />
-            </div>
-            <div>
-                <Button type="submit">Entrar</Button>
-            </div>
+            <BoxForm elevation={20} sx={{backgroundColor: "hsl(235, 24%, 19%)", color:"white"}}>
+                <WelcomeTitle>
+                    Olá, caro usuário, seja bem vindo ao To do app com meteorJs!
+                </WelcomeTitle>
+                <div>
+                    <TextField
+                        required
+                        id="username"
+                        type="text"
+                        label="Username"
+                        placeholder="Username"
+                        onChange={(e)=>setUsername(e.target.value)}
+                        sx={{
+                            mb:"12px",
+                            fontFamily:"Josefin Sans", 
+                            input:{color:"white",fontFamily:"Josefin Sans"}, 
+                            label:{color:"white",fontFamily:"Josefin Sans"},
+                            "& .MuiOutlinedInput-root":{
+                                "& fieldset":{borderColor:"hsl(234, 39%, 85%)"},
+                                "&: hover fieldset":{borderColor:"hsl(220, 98%, 61%)"},
 
-        </BoxForm>
+                            },
+                        }}
+                    />
+                </div>
+                <div>
+                    <TextField
+                        required
+                        id="password"
+                        type="password"
+                        label="Password"
+                        placeholder="Password"
+                        onChange={(e)=>setPassword(e.target.value)}
+                        sx={{
+                            mb:"12px", 
+                            input:{color:"white",fontFamily:"Josefin Sans"}, 
+                            label:{color:"white",fontFamily:"Josefin Sans"},
+                            "& .MuiOutlinedInput-root":{
+                                "& fieldset":{borderColor:"hsl(234, 39%, 85%)"},
+                                "&: hover fieldset":{borderColor:"hsl(220, 98%, 61%)"},
+
+                            },
+                        }}
+                    />
+                </div>
+                <div>
+                    <Button 
+                        type="submit" 
+                        sx={{
+                            borderRadius:"20px",
+                            width:"221.6px",
+                            color:"black",
+                            backgroundImage: "linear-gradient(to right, hsl(192, 100%, 67%), hsl(280, 87%, 65%))",
+                        }}
+                    >
+                        Entrar
+                    </Button>
+                </div>
+            </BoxForm>
+
+        </ContainerForm>
         
     );
 };
