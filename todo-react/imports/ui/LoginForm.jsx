@@ -1,5 +1,21 @@
 import React, { useState } from "react";
 import {Meteor} from "meteor/meteor";
+import { TextField,Box,Button } from "@mui/material";
+import styled from "styled-components";
+
+const BoxForm = styled(Box)`
+    display: flex;
+    flex-direction: column;
+    justify-content:center;
+    align-items: center;
+    border: 1px solid black;
+    height: 100vh;
+`
+const WelcomeTitle = styled.h1`
+    font-size: 16px;
+`
+
+
 
 export const LoginForm = () =>{
     const[username, setUsername]=useState("");
@@ -21,31 +37,41 @@ export const LoginForm = () =>{
     };
 
     return(
-        <form onSubmit={submit} className="login-form">
+        <BoxForm 
+            component="form"
+            autoComplete="off"
+            onSubmit={submit}
+        >
+            <WelcomeTitle>
+                Olá, caro usuário, seja bem vindo ao To do app com meteorJs!
+            </WelcomeTitle>
             <div>
-                Olá, caro usuário, seja bem vindo ao To do feito no meteorJs!
+                <TextField
+                    required
+                    id="username"
+                    type="text"
+                    label="Username"
+                    placeholder="Username"
+                    onChange={(e)=>setUsername(e.target.value)}
+                    sx={{mb:"8px"}}
+                />
             </div>
             <div>
-                <label htmlFor="username">Username</label>
-                <input 
-                    type="text" 
-                    name="username"  
-                    required 
-                    onChange={(e)=>setUsername(e.target.value)} 
-                    placeholder="Username"/>
+                <TextField
+                    required
+                    id="password"
+                    type="password"
+                    label="Password"
+                    placeholder="Password"
+                    onChange={(e)=>setPassword(e.target.value)}
+                    sx={{mb:"8px"}}    
+                />
             </div>
             <div>
-                <label htmlFor="password">Password</label>
-                <input 
-                    type="password" 
-                    name="password" 
-                    required 
-                    onChange={(e)=>setPassword(e.target.value)} 
-                    placeholder="Password"/>
-            </div>    
-            <div>
-                <button type="submit">Log in</button>
+                <Button type="submit">Entrar</Button>
             </div>
-        </form>
+
+        </BoxForm>
+        
     );
 };
