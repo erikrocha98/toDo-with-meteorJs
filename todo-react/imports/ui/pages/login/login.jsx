@@ -1,5 +1,5 @@
 import React from "react";
-import { LoginForm } from "../../LoginForm";
+import { LoginForm } from "./LoginForm";
 import { Navigate } from "react-router-dom";
 import {useTracker} from "meteor/react-meteor-data";
 

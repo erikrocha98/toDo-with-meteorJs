@@ -3,7 +3,7 @@ import { useTracker, useSubscribe} from "meteor/react-meteor-data";
 import { TasksCollection } from "../api/tasksCollection.js";
 import { Task } from "./Task";
 import { TaskForm } from "./TaskForm";
-import { Navigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import List from "@mui/material/List";
 
 
@@ -14,6 +14,7 @@ export const App = () => {
 
   const isLoading = useSubscribe("tasks");
   const hideCompletedFilter = {isChecked: {$ne: true}};
+  const navigate = useNavigate();
 
   
 
@@ -44,6 +45,9 @@ export const App = () => {
   }
   const handleDelete = ({_id}) =>{
     Meteor.callAsync("tasks.delete",{_id});
+  }
+  const handleEdit=({_id})=>{
+    navigate(`/edit/${_id}`);
   }
 
   const logout = () => {
@@ -85,7 +89,12 @@ export const App = () => {
             </div>
             <List>
               {tasks.map((task) => (
-                <Task key={task._id} task={task} user={user} onCheckBoxClick={handleToggleChecked} onDeleteClick={handleDelete}/>
+                <Task key={task._id} 
+                      task={task} 
+                      user={user} 
+                      onCheckBoxClick={handleToggleChecked} 
+                      onDeleteClick={handleDelete} 
+                      onEditClick={handleEdit}/>
               ))}
             </List>
           </Fragment>

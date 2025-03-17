@@ -5,14 +5,15 @@ import EditIcon from '@mui/icons-material/Edit';
 import Checkbox from '@mui/material/Checkbox';
 import AssignmentIcon from '@mui/icons-material/Assignment';
 
-export const Task = ({ task, onCheckBoxClick, onDeleteClick, user}) => {
+export const Task = ({ task, onCheckBoxClick, onDeleteClick, onEditClick, user}) => {
   return (
     <ListItem
       secondaryAction={
         <>
           <IconButton 
             edge="end" 
-            aria-label="edit" 
+            aria-label="edit"
+            onClick={()=>onEditClick(task)} 
             sx={{ mr: "10px" }}
           >
             <EditIcon />

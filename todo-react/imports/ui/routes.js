@@ -14,7 +14,7 @@ export default function AppRoutes() {
                 <Route path="/" element={<Login/>} />
                 <Route path="/welcome" element={<WelcomePage/>}/>
                 <Route path="/app" element={<App/>}/>
-                <Route path="/edit" element={<EditPage/>}/>
+                <Route path="/edit/:id" element={<EditPage/>}/>
                 <Route path="*" element={<NotFound/>}/>
             </Routes>
         </Router>
