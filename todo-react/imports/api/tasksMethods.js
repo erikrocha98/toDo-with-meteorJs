@@ -17,4 +17,12 @@ Meteor.methods({
     "tasks.delete"({_id}){
         return TasksCollection.removeAsync(_id);
     },
+    "tasks.update"({_id, text,createdAt}){
+        return TasksCollection.updateAsync(_id, {
+            $set:{
+                text,
+                createdAt
+            }
+        });
+    }
 })
