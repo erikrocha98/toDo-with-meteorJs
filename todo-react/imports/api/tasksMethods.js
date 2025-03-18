@@ -15,9 +15,15 @@ Meteor.methods({
         });
     },
     "tasks.delete"({_id}){
+        if (!this.userId || task?.userId!==this.userId){
+            throw new Meteor.Error("Não Autorizado");
+        }
         return TasksCollection.removeAsync(_id);
     },
     "tasks.update"({_id, text,createdAt}){
+        if (!this.userId || task?.userId!==this.userId){
+            throw new Meteor.Error("Não Autorizado");
+        }
         return TasksCollection.updateAsync(_id, {
             $set:{
                 text,

@@ -79,7 +79,7 @@ export const App = () => {
       <div className="main">
           <Fragment>
             <div className="user" onClick={logout}>
-                {user.username};
+                Log out
             </div>
             <TaskForm/>
             <div className="filter">

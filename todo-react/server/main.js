@@ -4,10 +4,11 @@ import {Accounts} from 'meteor/accounts-base';
 import "../imports/api/tasksPublications.js";
 import "../imports/api/tasksMethods.js";
 
-const insertTask = (taskText,user) =>{
+const insertTask = (taskText,user,isPersonal=false) =>{
   TasksCollection.insertAsync({ 
-    text: taskText,
+    text:taskText,
     userId: user._id,
+    isPersonal,
     createdAt: new Date(),
    });
 }
@@ -39,13 +40,14 @@ Meteor.startup(async () => {
 
   if ((await TasksCollection.find().countAsync()) === 0) {
     [
-      "First Task",
-      "Second Task",
-      "Third Task",
-      "Fourth Task",
-      "Fifth Task",
-      "Sixth Task",
-      "Seventh Task",
-    ].forEach((taskText) => insertTask(taskText, user));
+      {text:"First Task", isPersonal:false},
+      {text:"Second Task", isPersonal:false},
+      {text:"Third Task", isPersonal:false},
+      {text:"Fourth Task", isPersonal:true},
+      {text:"Fifth Task", isPersonal:false},
+      {text:"Sixth Task", isPersonal:true},
+      {text:"Seventh Task", isPersonal:true},
+      
+    ].forEach((text, isPersonal) => insertTask(text, user, isPersonal));
   }
 });

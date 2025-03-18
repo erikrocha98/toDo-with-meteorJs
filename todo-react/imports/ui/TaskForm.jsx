@@ -1,6 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import {Meteor} from "meteor/meteor";
+import { Box, TextField,Button } from "@mui/material";
 
 export const TaskForm = () =>{
     const [text,setText] = useState("");
@@ -28,9 +29,33 @@ export const TaskForm = () =>{
     };
 
     return (
-        <form className="task-form" onSubmit={handleSubmit}>
-            <input type="text" value={text} onChange={(e)=>setText(e.target.value)} placeholder="Digite para adicionar novas tarefas"/>
-            <button type="submit">Adicionar Tarefas</button>
-        </form>
+        <Box
+            component="form"
+            autoComplete="off"
+            onSubmit={handleSubmit}
+            sx={{display:"flex", margin:"16px"}}
+        >
+            <TextField 
+                required
+                type="text"
+                value={text}
+                onChange={(e)=>setText(e.target.value)}
+                placeholder="Digite para adicionar novas tarefas"
+                fullWidth
+                sx={{mr:"16px"}}
+
+            />
+            <Button 
+                type="submit"
+                sx={{height:"90%",
+                    minWidth:"100px",
+                    color:"black",
+                    backgroundImage: "linear-gradient(to right, hsl(192, 100%, 67%), hsl(280, 87%, 65%))",}}
+            >
+                Adicionar Tarefas
+            </Button>
+
+        </Box>
+        
     )
 }
