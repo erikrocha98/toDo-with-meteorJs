@@ -29,7 +29,9 @@ export const EditPage = () =>{
         e.preventDefault();
         Meteor.callAsync("tasks.update", {
             _id:id,
-            text,
+            text:{
+                text
+            },
             createdAt
         });
         navigate(-1);

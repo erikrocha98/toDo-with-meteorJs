@@ -24,7 +24,8 @@ Meteor.methods({
         }
         return TasksCollection.removeAsync(_id);
     },
-    "tasks.update"({_id, text,createdAt}){
+    "tasks.update": async function ({_id, text,createdAt}){
+        const task = await TasksCollection.findOneAsync(_id);
         if (!this.userId || task?.userId!==this.userId){
             throw new Meteor.Error("Não Autorizado");
         }
