@@ -6,6 +6,8 @@ import Checkbox from '@mui/material/Checkbox';
 import AssignmentIcon from '@mui/icons-material/Assignment';
 
 export const Task = ({ task, onCheckBoxClick, onDeleteClick, onEditClick, user}) => {
+  console.log("Task:", task);
+  console.log("User:", user);
   return (
     <ListItem
       secondaryAction={
@@ -39,7 +41,7 @@ export const Task = ({ task, onCheckBoxClick, onDeleteClick, onEditClick, user})
         checked={!!task.isChecked}
         onClick={() => onCheckBoxClick(task)}
       />
-      <ListItemText primary={task.text} secondary={user.username} />
+      <ListItemText primary={task.text.text} secondary={user.username} />
     </ListItem>
     
   );

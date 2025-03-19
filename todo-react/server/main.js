@@ -48,6 +48,6 @@ Meteor.startup(async () => {
       {text:"Sixth Task", isPersonal:true},
       {text:"Seventh Task", isPersonal:true},
       
-    ].forEach((text, isPersonal) => insertTask(text, user, isPersonal));
+    ].forEach(task => insertTask(task.text, user, task.isPersonal));
   }
 });

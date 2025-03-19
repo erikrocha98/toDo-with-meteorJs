@@ -3,9 +3,17 @@ import {TasksCollection} from "./tasksCollection.js";
 
 Meteor.publish("tasks", function () {
   const userId = this.userId;
+  const task = this.task;
   if(!userId){
     return this.ready();
   }
-  //As tarefas tem visualização pública
-  return TasksCollection.find();
+  
+  return TasksCollection.find({
+    $or: [
+      {isPersonal:false},
+      {userId: this.userId}
+    ]
+  });
+  
+  
 });

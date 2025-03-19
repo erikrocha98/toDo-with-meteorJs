@@ -16,12 +16,11 @@ export const EditPage = () =>{
     const task = useTracker(()=> TasksCollection.findOne(id));
 
     const[text,setText] = useState("");
-    const[isChecked, setIsChecked]=useState("Pendente");
     const[createdAt,setCreatedAt]=useState(new Date());
 
     useEffect(()=>{
         if (task){
-            setText(task.text || "");
+            setText(task.text.text || "");
             setCreatedAt(task.createdAt || new Date());
         }
     },[task]);
