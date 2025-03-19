@@ -5,7 +5,10 @@ import { TasksCollection } from "./tasksCollection.js";
 Meteor.methods({
     "tasks.insert"(doc){
             return TasksCollection.insertAsync({
-                ...doc,
+                text:{
+                    text: doc.text.text.trim(),
+                    isPersonal:doc.text.isPersonal,
+                },
                 userId:this.userId,
             });
     },
@@ -14,7 +17,8 @@ Meteor.methods({
             $set:{isChecked: !isChecked},
         });
     },
-    "tasks.delete"({_id}){
+    "tasks.delete":async function({_id}){
+        const task = await TasksCollection.findOneAsync(_id);
         if (!this.userId || task?.userId!==this.userId){
             throw new Meteor.Error("Não Autorizado");
         }

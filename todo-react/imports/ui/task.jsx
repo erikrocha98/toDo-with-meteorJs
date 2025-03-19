@@ -6,8 +6,7 @@ import Checkbox from '@mui/material/Checkbox';
 import AssignmentIcon from '@mui/icons-material/Assignment';
 
 export const Task = ({ task, onCheckBoxClick, onDeleteClick, onEditClick, user}) => {
-  console.log("Task:", task);
-  console.log("User:", user);
+  
   return (
     <ListItem
       secondaryAction={

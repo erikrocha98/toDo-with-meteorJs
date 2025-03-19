@@ -5,6 +5,7 @@ import { Box, TextField,Button, FormControlLabel, Switch } from "@mui/material";
 
 export const TaskForm = () =>{
     const [text,setText] = useState("");
+    const [isPersonal, setIsPersonal] = useState(false);
 
     const handleSubmit = async (e) =>{
         e.preventDefault();
@@ -16,7 +17,11 @@ export const TaskForm = () =>{
 
         try {
             await Meteor.callAsync("tasks.insert", {
-                text: text.trim(),
+
+                text:{
+                    text: text.trim(),
+                    isPersonal,
+                },
                 createdAt: new Date(),
             });          
         } catch (error) {
@@ -60,7 +65,7 @@ export const TaskForm = () =>{
             >
                 Adicionar Tarefas
             </Button>
-            <FormControlLabel control={<Switch defaultChecked/>} label="Tarefa Pessoal"/>
+            <FormControlLabel control={<Switch checked={isPersonal} onChange={(e)=>setIsPersonal(e.target.checked)}/>} label="Tarefa Pessoal"/>
 
         </Box>
         
