@@ -1,7 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import {Meteor} from "meteor/meteor";
-import { Box, TextField,Button } from "@mui/material";
+import { Box, TextField,Button, FormControlLabel, Switch } from "@mui/material";
 
 export const TaskForm = () =>{
     const [text,setText] = useState("");
@@ -33,7 +33,12 @@ export const TaskForm = () =>{
             component="form"
             autoComplete="off"
             onSubmit={handleSubmit}
-            sx={{display:"flex", margin:"16px"}}
+            sx={{
+                display:"flex", 
+                margin:"16px", 
+                flexDirection:"column",
+                alignItems:"center",
+            }}
         >
             <TextField 
                 required
@@ -42,18 +47,20 @@ export const TaskForm = () =>{
                 onChange={(e)=>setText(e.target.value)}
                 placeholder="Digite para adicionar novas tarefas"
                 fullWidth
-                sx={{mr:"16px"}}
+                sx={{mb:"16px"}}
 
             />
             <Button 
                 type="submit"
                 sx={{height:"90%",
                     minWidth:"100px",
+                    maxWidth:"500px",
                     color:"black",
                     backgroundImage: "linear-gradient(to right, hsl(192, 100%, 67%), hsl(280, 87%, 65%))",}}
             >
                 Adicionar Tarefas
             </Button>
+            <FormControlLabel control={<Switch defaultChecked/>} label="Tarefa Pessoal"/>
 
         </Box>
         
