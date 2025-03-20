@@ -5,7 +5,6 @@ import { Task } from "./Task";
 import { TaskForm } from "./TaskForm";
 import { Navigate, useNavigate } from "react-router-dom";
 import List from "@mui/material/List";
-import { Chip } from "@mui/material";
 
 export const App = () => {
   const [hideCompleted, setHideCompleted] = useState(false);
@@ -93,7 +92,6 @@ export const App = () => {
                       width:"100%",
                       maxWidth:"1000px",
                       margin:"0 auto",
-                      border:"1px solid black"
                       }}
             >
               {tasks.map((task) => (
@@ -106,8 +104,7 @@ export const App = () => {
                         onDeleteClick={handleDelete} 
                         onEditClick={handleEdit}
                         />
-                  <Chip label={task.text.isPersonal? "Pessoal": "Não Pessoal"} sx={{mr:"8px"}}/>
-                  <Chip label="Cadastrada"/>
+                  
                 </div>
               ))}
               

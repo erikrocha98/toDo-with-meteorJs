@@ -1,58 +1,52 @@
-import React from 'react';
-import { Avatar, IconButton, Select, ListItem, ListItemAvatar, ListItemText, MenuItem } from "@mui/material";
-import DeleteIcon from '@mui/icons-material/Delete';
-import EditIcon from '@mui/icons-material/Edit';
-import Checkbox from '@mui/material/Checkbox';
-import AssignmentIcon from '@mui/icons-material/Assignment';
+import React from "react";
+import { 
+  Avatar, IconButton, Select, MenuItem, Checkbox, 
+  Accordion, AccordionSummary, AccordionDetails, 
+  ListItemAvatar, Typography, Chip
+} from "@mui/material";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import DeleteIcon from "@mui/icons-material/Delete";
+import EditIcon from "@mui/icons-material/Edit";
+import AssignmentIcon from "@mui/icons-material/Assignment";
 
-export const Task = ({ task, onCheckBoxClick, onDeleteClick, onEditClick, user}) => {
-  
+export const Task = ({ task, onCheckBoxClick, onDeleteClick, onEditClick, user }) => {
   return (
-    <ListItem
-      secondaryAction={
-        <>
-          <IconButton 
-            edge="end" 
-            aria-label="edit"
-            onClick={()=>onEditClick(task)} 
-            sx={{ mr: "10px" }}
-          >
-            <EditIcon />
-          </IconButton>
+    <Accordion sx={{ width: "100%", mb: 1 }}>
+      <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+        <ListItemAvatar>
+          <Avatar sx={{backgroundColor:"green"}}>
+            <AssignmentIcon />
+          </Avatar>
+        </ListItemAvatar>
 
-          <IconButton
-            edge="end"
-            aria-label="delete"
-            sx={{mr:"10px"}}
-            onClick={() => onDeleteClick(task)}
-          >
-            <DeleteIcon />
-          </IconButton>
-          <Select
-              labelId="demo-customized-select-label"
-              id="demo-customized-select"
-            >
-              <MenuItem >Cadastrada</MenuItem>
-              <MenuItem >Em Andamento</MenuItem>
-              <MenuItem >Concluída</MenuItem>
-          </Select>
-          
-        </>
-      }
-    >
-      
-      <ListItemAvatar>
-        <Avatar>
-          <AssignmentIcon />
-        </Avatar>
-      </ListItemAvatar>
-      <Checkbox
-        checked={!!task.isChecked}
-        onClick={() => onCheckBoxClick(task)}
-      />
+        <Checkbox checked={!!task.isChecked} onClick={() => onCheckBoxClick(task)} />
+        
+        <Typography sx={{ flexGrow: 1 }}>{task.text.text}</Typography>
 
-      <ListItemText primary={task.text.text} secondary={user.username} />
-    </ListItem>
-    
+        <IconButton edge="end" aria-label="edit" onClick={() => onEditClick(task)} sx={{ mr: "10px" }}>
+          <EditIcon />
+        </IconButton>
+
+        <IconButton edge="end" aria-label="delete" sx={{ mr: "10px" }} color="error" onClick={() => onDeleteClick(task)}>
+          <DeleteIcon />
+        </IconButton>
+        <Select  value={task.status || "Cadastrada"}>
+          <MenuItem value="Cadastrada">Cadastrada</MenuItem>
+          <MenuItem value="Em Andamento">Em Andamento</MenuItem>
+          <MenuItem value="Concluída">Concluída</MenuItem>
+        </Select>
+      </AccordionSummary>
+
+      <AccordionDetails>
+        <Typography variant="body2" color="textSecondary">
+          Criado por: {user.username}
+        </Typography>
+        <Chip label={task.text.isPersonal? "Pessoal": "Não Pessoal"} sx={{mr:"8px"}}/>
+        <Chip label="Cadastrada"/>
+        Qualquer descrição de tarefa virá aqui.
+
+        
+      </AccordionDetails>
+    </Accordion>
   );
 };
