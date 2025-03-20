@@ -49,7 +49,7 @@ export const EditPage = () =>{
                 <TextField 
                     required
                     type="text"
-                    id=""
+                    id="Nome"
                     label="Nome"
                     value={text}
                     onChange={(e)=>setText(e.target.value)}
@@ -67,8 +67,29 @@ export const EditPage = () =>{
                     }}
                 />
             </div>
-            
+            <div>
+                <TextField 
+                    required
+                    type="text"
+                    id="Descricao"
+                    label="Descrição"
+                    /* value={text} */
+                    /* onChange={(e)=>setText(e.target.value)} */
+                    fullWidth
+                    sx={{
+                        mb:"12px",
+                        fontFamily:"Josefin Sans", 
+                        input:{color:"white",fontFamily:"Josefin Sans"}, 
+                        label:{color:"white",fontFamily:"Josefin Sans"},
+                        "& .MuiOutlinedInput-root":{
+                            "& fieldset":{borderColor:"hsl(234, 39%, 85%)"},
+                            "&: hover fieldset":{borderColor:"hsl(220, 98%, 61%)"},
 
+                        },
+                    }}
+                />
+            </div>
+            
             <div>
                 <TextField 
                     required

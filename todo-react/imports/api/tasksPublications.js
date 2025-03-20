@@ -3,7 +3,6 @@ import {TasksCollection} from "./tasksCollection.js";
 
 Meteor.publish("tasks", function () {
   const userId = this.userId;
-  const task = this.task;
   if(!userId){
     return this.ready();
   }

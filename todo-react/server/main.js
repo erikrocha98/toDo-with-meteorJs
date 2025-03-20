@@ -4,11 +4,13 @@ import {Accounts} from 'meteor/accounts-base';
 import "../imports/api/tasksPublications.js";
 import "../imports/api/tasksMethods.js";
 
-const insertTask = (taskText,user,isPersonal=false) =>{
+const insertTask = (taskText,user,isPersonal=false, description="",taskStatus="Cadastrada") =>{
   TasksCollection.insertAsync({ 
     text:taskText,
     userId: user._id,
     isPersonal,
+    description,
+    taskStatus,
     createdAt: new Date(),
    });
 }
@@ -40,14 +42,14 @@ Meteor.startup(async () => {
 
   if ((await TasksCollection.find().countAsync()) === 0) {
     [
-      {text:"First Task", isPersonal:false},
-      {text:"Second Task", isPersonal:false},
-      {text:"Third Task", isPersonal:false},
-      {text:"Fourth Task", isPersonal:true},
-      {text:"Fifth Task", isPersonal:false},
-      {text:"Sixth Task", isPersonal:true},
-      {text:"Seventh Task", isPersonal:true},
+      {text:"First Task", isPersonal:false, description:"Descrição tarefa 1",taskStatus:"Cadastrada"},
+      {text:"Second Task", isPersonal:false, description:"Descrição tarefa 2",taskStatus:"Cadastrada"},
+      {text:"Third Task", isPersonal:false, description:"Descrição tarefa 3",taskStatus:"Cadastrada"},
+      {text:"Fourth Task", isPersonal:true, description:"Descrição tarefa 4",taskStatus:"Cadastrada"},
+      {text:"Fifth Task", isPersonal:false, description:"Descrição tarefa 5",taskStatus:"Cadastrada"},
+      {text:"Sixth Task", isPersonal:true, description:"Descrição tarefa 6",taskStatus:"Cadastrada"},
+      {text:"Seventh Task", isPersonal:true, description:"Descrição tarefa 7",taskStatus:"Cadastrada"},
       
-    ].forEach(task => insertTask(task.text, user, task.isPersonal));
+    ].forEach(task => insertTask(task.text, user, task.isPersonal, task.description, task.taskStatus));
   }
 });
