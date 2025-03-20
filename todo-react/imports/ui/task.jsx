@@ -1,5 +1,5 @@
 import React from 'react';
-import { Avatar, IconButton, List, ListItem, ListItemAvatar, ListItemText } from "@mui/material";
+import { Avatar, IconButton, Select, ListItem, ListItemAvatar, ListItemText, MenuItem } from "@mui/material";
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import Checkbox from '@mui/material/Checkbox';
@@ -23,14 +23,24 @@ export const Task = ({ task, onCheckBoxClick, onDeleteClick, onEditClick, user})
           <IconButton
             edge="end"
             aria-label="delete"
+            sx={{mr:"10px"}}
             onClick={() => onDeleteClick(task)}
           >
             <DeleteIcon />
           </IconButton>
+          <Select
+              labelId="demo-customized-select-label"
+              id="demo-customized-select"
+            >
+              <MenuItem >Cadastrada</MenuItem>
+              <MenuItem >Em Andamento</MenuItem>
+              <MenuItem >Concluída</MenuItem>
+          </Select>
           
         </>
       }
     >
+      
       <ListItemAvatar>
         <Avatar>
           <AssignmentIcon />
@@ -40,6 +50,7 @@ export const Task = ({ task, onCheckBoxClick, onDeleteClick, onEditClick, user})
         checked={!!task.isChecked}
         onClick={() => onCheckBoxClick(task)}
       />
+
       <ListItemText primary={task.text.text} secondary={user.username} />
     </ListItem>
     

@@ -5,7 +5,7 @@ import { Task } from "./Task";
 import { TaskForm } from "./TaskForm";
 import { Navigate, useNavigate } from "react-router-dom";
 import List from "@mui/material/List";
-
+import { Chip } from "@mui/material";
 
 export const App = () => {
   const [hideCompleted, setHideCompleted] = useState(false);
@@ -87,15 +87,30 @@ export const App = () => {
                 {hideCompleted? 'Show All':'Hide Completed'}
               </button>
             </div>
-            <List>
+            <List sx={{
+                      display:"flex", 
+                      flexDirection:"column",
+                      width:"100%",
+                      maxWidth:"1000px",
+                      margin:"0 auto",
+                      border:"1px solid black"
+                      }}
+            >
               {tasks.map((task) => (
-                <Task key={task._id} 
-                      task={task} 
-                      user={user} 
-                      onCheckBoxClick={handleToggleChecked} 
-                      onDeleteClick={handleDelete} 
-                      onEditClick={handleEdit}/>
+                <div>
+
+                  <Task key={task._id} 
+                        task={task} 
+                        user={user} 
+                        onCheckBoxClick={handleToggleChecked} 
+                        onDeleteClick={handleDelete} 
+                        onEditClick={handleEdit}
+                        />
+                  <Chip label={task.text.isPersonal? "Pessoal": "Não Pessoal"} sx={{mr:"8px"}}/>
+                  <Chip label="Cadastrada"/>
+                </div>
               ))}
+              
             </List>
           </Fragment>
       </div>
