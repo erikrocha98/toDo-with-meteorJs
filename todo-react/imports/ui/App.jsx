@@ -95,9 +95,9 @@ export const App = () => {
                       }}
             >
               {tasks.map((task) => (
-                <div>
+                <div key={task._id}>
 
-                  <Task key={task._id} 
+                  <Task  
                         task={task} 
                         user={user} 
                         onCheckBoxClick={handleToggleChecked} 

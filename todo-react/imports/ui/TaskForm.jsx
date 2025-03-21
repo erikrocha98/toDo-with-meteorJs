@@ -1,10 +1,11 @@
 import React from "react";
 import { useState } from "react";
 import {Meteor} from "meteor/meteor";
-import { Box, TextField,Button, FormControlLabel, Switch } from "@mui/material";
+import { Box, TextField,Button, FormControlLabel, Switch, Select } from "@mui/material";
 
 export const TaskForm = () =>{
     const [text,setText] = useState("");
+    const [description, setDescription]=useState("");
     const [isPersonal, setIsPersonal] = useState(false);
 
     const handleSubmit = async (e) =>{
@@ -17,11 +18,10 @@ export const TaskForm = () =>{
 
         try {
             await Meteor.callAsync("tasks.insert", {
-
-                text:{
-                    text: text.trim(),
-                    isPersonal,
-                },
+                text:text.trim(),
+                description,
+                taskStatus:"Cadastrada",
+                isPersonal,
                 createdAt: new Date(),
             });          
         } catch (error) {
@@ -31,6 +31,7 @@ export const TaskForm = () =>{
 
         //Após consumir o texto colocado no campo de input, o campo é resetado.
         setText("");
+        setDescription("");
     };
 
     return (
@@ -43,18 +44,31 @@ export const TaskForm = () =>{
                 margin:"16px", 
                 flexDirection:"column",
                 alignItems:"center",
-            }}
+            }}            
         >
-            <TextField 
-                required
-                type="text"
-                value={text}
-                onChange={(e)=>setText(e.target.value)}
-                placeholder="Digite para adicionar novas tarefas"
-                fullWidth
-                sx={{mb:"16px"}}
+            <Box sx={{display:"flex",flexGrow:1}}>
+                <TextField 
+                    required
+                    type="text"
+                    value={text}
+                    onChange={(e)=>setText(e.target.value)}
+                    placeholder="Digite para adicionar novas tarefas"
+                    
+                    sx={{mb:"16px", mr:"16px", width:"40vw"}}
 
-            />
+                />
+                <TextField 
+                    required
+                    type="text"
+                    value={description}
+                    onChange={(e)=>setDescription(e.target.value)}
+                    placeholder="Digite para adicionar uma descrição à sua tarefa"
+                    
+                    sx={{mb:"16px",width:"40vw"}}
+
+                />
+                
+            </Box>
             <Button 
                 type="submit"
                 sx={{height:"90%",

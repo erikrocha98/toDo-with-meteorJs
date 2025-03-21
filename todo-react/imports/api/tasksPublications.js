@@ -9,7 +9,7 @@ Meteor.publish("tasks", function () {
   
   return TasksCollection.find({
     $or: [
-      {"text.isPersonal":false},
+      {isPersonal:false},
       {userId: this.userId}
     ]
   });

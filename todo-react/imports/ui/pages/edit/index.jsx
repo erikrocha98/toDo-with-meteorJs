@@ -16,12 +16,14 @@ export const EditPage = () =>{
     const task = useTracker(()=> TasksCollection.findOne(id));
 
     const[text,setText] = useState("");
+    const[description, setDescription]=useState("");
     const[createdAt,setCreatedAt]=useState(new Date());
 
     useEffect(()=>{
         if (task){
-            setText(task.text.text || "");
+            setText(task.text || "");
             setCreatedAt(task.createdAt || new Date());
+            setDescription(task.description || "");
         }
     },[task]);
 
@@ -29,9 +31,8 @@ export const EditPage = () =>{
         e.preventDefault();
         Meteor.callAsync("tasks.update", {
             _id:id,
-            text:{
-                text
-            },
+            text,
+            description,
             createdAt
         });
         navigate(-1);
@@ -73,8 +74,8 @@ export const EditPage = () =>{
                     type="text"
                     id="Descricao"
                     label="Descrição"
-                    /* value={text} */
-                    /* onChange={(e)=>setText(e.target.value)} */
+                    value={description}
+                    onChange={(e)=>setDescription(e.target.value)}
                     fullWidth
                     sx={{
                         mb:"12px",

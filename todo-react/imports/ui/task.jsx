@@ -10,6 +10,10 @@ import EditIcon from "@mui/icons-material/Edit";
 import AssignmentIcon from "@mui/icons-material/Assignment";
 
 export const Task = ({ task, onCheckBoxClick, onDeleteClick, onEditClick, user }) => {
+  console.log("Descrição recebida:", task.description);
+  console.log("Status recebida:", task.taskStatus);
+  console.log("id recebida:", task._id);
+  console.log("texto recebida:", task.text);
   return (
     <Accordion sx={{ width: "100%", mb: 1 }}>
       <AccordionSummary expandIcon={<ExpandMoreIcon />}>
@@ -21,7 +25,7 @@ export const Task = ({ task, onCheckBoxClick, onDeleteClick, onEditClick, user }
 
         <Checkbox checked={!!task.isChecked} onClick={() => onCheckBoxClick(task)} />
         
-        <Typography sx={{ flexGrow: 1 }}>{task.text.text}</Typography>
+        <Typography sx={{ flexGrow: 1 }}>{task.text}</Typography>
 
         <IconButton edge="end" aria-label="edit" onClick={() => onEditClick(task)} sx={{ mr: "10px" }}>
           <EditIcon />
@@ -30,23 +34,28 @@ export const Task = ({ task, onCheckBoxClick, onDeleteClick, onEditClick, user }
         <IconButton edge="end" aria-label="delete" sx={{ mr: "10px" }} color="error" onClick={() => onDeleteClick(task)}>
           <DeleteIcon />
         </IconButton>
-        <Select  value={task.status || "Cadastrada"}>
-          <MenuItem value="Cadastrada">Cadastrada</MenuItem>
-          <MenuItem value="Em Andamento">Em Andamento</MenuItem>
-          <MenuItem value="Concluída">Concluída</MenuItem>
+        <Select  >
+            <MenuItem value="Cadastrada">Cadastrada</MenuItem>
+            <MenuItem value="Em Andamento">Em Andamento</MenuItem>
+            <MenuItem value="Concluída">Concluída</MenuItem>
         </Select>
+          
       </AccordionSummary>
-
+      
       <AccordionDetails>
-        <Typography variant="body2" color="textSecondary">
+        <Typography sx={{mb:"10px"}} variant="body2" color="textSecondary">
           Criado por: {user.username}
         </Typography>
-        <Chip label={task.text.isPersonal? "Pessoal": "Não Pessoal"} sx={{mr:"8px"}}/>
-        <Chip label="Cadastrada"/>
-        Qualquer descrição de tarefa virá aqui.
+        
+        <Chip label={task.isPersonal? "Pessoal": "Não Pessoal"} sx={{mr:"8px"}}/>
+        <Chip label={task.taskStatus??"Sem status"}/>
+        <Typography sx={{mt:"10px"}} variant="body2" color="textSecondary">
+          {task.description ?? "Sem descrição"}
+        </Typography>
 
         
       </AccordionDetails>
+      
     </Accordion>
   );
 };
