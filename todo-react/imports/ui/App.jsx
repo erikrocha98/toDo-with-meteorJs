@@ -35,7 +35,7 @@ export const App = () => {
   });
 
   const pendingTasksTitle= `${
-    pendingTasksCount? `(${pendingTasksCount})`: ''
+    pendingTasksCount? `${pendingTasksCount} tarefas pendentes`: ''
   }`;
 
 
@@ -65,16 +65,6 @@ export const App = () => {
 
   return (
     <div className="app">
-      <header>
-        <div className="app-bar">
-          <div className="app-header">
-            <h1>
-              📝️ To Do List
-              {pendingTasksTitle}  
-            </h1>
-          </div>
-        </div>
-      </header>
       <div className="main">
           <Fragment>
             <div className="user" onClick={logout}>
@@ -107,8 +97,12 @@ export const App = () => {
                   
                 </div>
               ))}
+              <div>
+                {pendingTasksTitle}
+              </div>
               
             </List>
+            
           </Fragment>
       </div>
     </div>

@@ -5,11 +5,13 @@ import {App} from "./App";
 import {Login} from "./pages/login/login";
 import { NotFound } from "./pages/notFound";
 import { EditPage } from "./pages/edit";
+import { Header } from "./components";
 
 
 export default function AppRoutes() {
     return (
         <Router>
+            <Header/>
             <Routes>
                 <Route path="/" element={<Login/>} />
                 <Route path="/welcome" element={<WelcomePage/>}/>
