@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Box, TextField, Button } from "@mui/material";
+import { Box, TextField, Button, Select, MenuItem } from "@mui/material";
 import styled from "styled-components";
 import { useNavigate, useParams } from "react-router-dom";
 import { TasksCollection } from "../../../api/tasksCollection";
@@ -18,12 +18,14 @@ export const EditPage = () =>{
     const[text,setText] = useState("");
     const[description, setDescription]=useState("");
     const[createdAt,setCreatedAt]=useState(new Date());
+    const[selectedValue, setSelectedValue]=useState("");
 
     useEffect(()=>{
         if (task){
             setText(task.text || "");
             setCreatedAt(task.createdAt || new Date());
             setDescription(task.description || "");
+            setSelectedValue(task.taskStatus || "");
         }
     },[task]);
 
@@ -33,7 +35,8 @@ export const EditPage = () =>{
             _id:id,
             text,
             description,
-            createdAt
+            createdAt,
+            taskStatus:selectedValue
         });
         navigate(-1);
     }
@@ -114,6 +117,13 @@ export const EditPage = () =>{
                         },
                     }}
                 />
+            </div>
+            <div>
+                <Select sx={{color:"white", fontFamily:"Josefin Sans"}} value={selectedValue} onChange={(e)=>setSelectedValue(e.target.value)}>
+                    <MenuItem value="Cadastrada">Cadastrada</MenuItem>
+                    <MenuItem value="Em Andamento">Em Andamento</MenuItem>
+                    <MenuItem value="Concluída">Concluída</MenuItem>
+                </Select>
             </div>
             
             <Button onClick={()=>navigate(-1)}>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { 
   Avatar, IconButton, Select, MenuItem, Checkbox, 
   Accordion, AccordionSummary, AccordionDetails, 
@@ -10,10 +10,14 @@ import EditIcon from "@mui/icons-material/Edit";
 import AssignmentIcon from "@mui/icons-material/Assignment";
 
 export const Task = ({ task, onCheckBoxClick, onDeleteClick, onEditClick, user }) => {
-  console.log("Descrição recebida:", task.description);
-  console.log("Status recebida:", task.taskStatus);
-  console.log("id recebida:", task._id);
-  console.log("texto recebida:", task.text);
+  const[selectedValue, setSelectedValue]=useState(task.taskStatus || "Cadastrada");
+
+  /* const handleChange = async (e) =>{
+    const newValue = e.target.value;
+    setSelectedValue(newValue);
+    await Meteor.callAsync("tasks.updateStatus", task._id, newValue );
+  }
+ */
   return (
     <Accordion sx={{ width: "100%", mb: 1 }}>
       <AccordionSummary expandIcon={<ExpandMoreIcon />}>
@@ -34,7 +38,7 @@ export const Task = ({ task, onCheckBoxClick, onDeleteClick, onEditClick, user }
         <IconButton edge="end" aria-label="delete" sx={{ mr: "10px" }} color="error" onClick={() => onDeleteClick(task)}>
           <DeleteIcon />
         </IconButton>
-        <Select  >
+        <Select value={selectedValue}>
             <MenuItem value="Cadastrada">Cadastrada</MenuItem>
             <MenuItem value="Em Andamento">Em Andamento</MenuItem>
             <MenuItem value="Concluída">Concluída</MenuItem>

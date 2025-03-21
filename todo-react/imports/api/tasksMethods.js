@@ -21,7 +21,7 @@ Meteor.methods({
         }
         return TasksCollection.removeAsync(_id);
     },
-    "tasks.update": async function ({_id, text,description,createdAt}){
+    "tasks.update": async function ({_id, text,description,createdAt,taskStatus}){
         const task = await TasksCollection.findOneAsync(_id);
         if (!this.userId || task?.userId!==this.userId){
             throw new Meteor.Error("Não Autorizado");
@@ -30,8 +30,20 @@ Meteor.methods({
             $set:{
                 text,
                 description,
-                createdAt
+                createdAt,
+                taskStatus
             }
         });
-    }
+    },
+   /*  "tasks.updateStatus": async function ({_id,taskStatus}){
+        const task = await TasksCollection.findOneAsync(_id);
+        if (!this.userId || task?.userId!==this.userId){
+            throw new Meteor.Error("Não Autorizado");
+        }
+        return TasksCollection.updateAsync(_id,  {
+            $set:{
+                taskStatus
+            }
+        });
+    } */
 })
