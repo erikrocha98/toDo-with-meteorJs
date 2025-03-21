@@ -12,12 +12,14 @@ import AssignmentIcon from "@mui/icons-material/Assignment";
 export const Task = ({ task, onCheckBoxClick, onDeleteClick, onEditClick, user }) => {
   const[selectedValue, setSelectedValue]=useState(task.taskStatus || "Cadastrada");
 
-  /* const handleChange = async (e) =>{
+  const handleSelectChange =  (e) =>{
     const newValue = e.target.value;
     setSelectedValue(newValue);
-    await Meteor.callAsync("tasks.updateStatus", task._id, newValue );
+    Meteor.callAsync("tasks.updateStatus", {_id:task._id, taskStatus: newValue} );
   }
- */
+
+  
+
   return (
     <Accordion sx={{ width: "100%", mb: 1 }}>
       <AccordionSummary expandIcon={<ExpandMoreIcon />}>
@@ -29,7 +31,7 @@ export const Task = ({ task, onCheckBoxClick, onDeleteClick, onEditClick, user }
 
         <Checkbox checked={!!task.isChecked} onClick={() => onCheckBoxClick(task)} />
         
-        <Typography sx={{ flexGrow: 1 }}>{task.text}</Typography>
+        <Typography sx={{ textDecoration:task.taskStatus ==="Cadastrada" || task.taskStatus==="Em Andamento"?"none":"line-through" ,flexGrow: 1 }}>{task.text}</Typography>
 
         <IconButton edge="end" aria-label="edit" onClick={() => onEditClick(task)} sx={{ mr: "10px" }}>
           <EditIcon />
@@ -38,7 +40,7 @@ export const Task = ({ task, onCheckBoxClick, onDeleteClick, onEditClick, user }
         <IconButton edge="end" aria-label="delete" sx={{ mr: "10px" }} color="error" onClick={() => onDeleteClick(task)}>
           <DeleteIcon />
         </IconButton>
-        <Select value={selectedValue}>
+        <Select value={selectedValue} onChange={handleSelectChange}>
             <MenuItem value="Cadastrada">Cadastrada</MenuItem>
             <MenuItem value="Em Andamento">Em Andamento</MenuItem>
             <MenuItem value="Concluída">Concluída</MenuItem>

@@ -10,7 +10,6 @@ const ContainerForm = styled(Box)`
     justify-content:center;
     align-items: center;
     min-height: 100vh;
-    border:1px solid black
 `
 const BoxForm = styled(Paper)`
     display:flex;

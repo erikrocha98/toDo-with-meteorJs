@@ -48,7 +48,7 @@ export const App = () => {
   const handleEdit=({_id})=>{
     navigate(`/edit/${_id}`);
   }
-
+  
   const logout = () => {
     Meteor.logout()
     setRedirectToLogin(true);
