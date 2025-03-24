@@ -53,8 +53,19 @@ export const TaskForm = () =>{
                     value={text}
                     onChange={(e)=>setText(e.target.value)}
                     placeholder="Digite para adicionar novas tarefas"
-                    
-                    sx={{mb:"16px", mr:"16px", width:"40vw"}}
+                    sx={{
+                        mb:"16px", 
+                        mr:"16px", 
+                        width:"40vw",
+                        fontFamily:"Josefin Sans", 
+                        input:{color:"white",fontFamily:"Josefin Sans"}, 
+                        label:{color:"white",fontFamily:"Josefin Sans"},
+                        "& .MuiOutlinedInput-root":{
+                            "& fieldset":{borderColor:"hsl(234, 39%, 85%)"},
+                            "&: hover fieldset":{borderColor:"hsl(220, 98%, 61%)"},
+
+                        },
+                    }}
 
                 />
                 <TextField 
@@ -64,7 +75,19 @@ export const TaskForm = () =>{
                     onChange={(e)=>setDescription(e.target.value)}
                     placeholder="Digite para adicionar uma descrição à sua tarefa"
                     
-                    sx={{mb:"16px",width:"40vw"}}
+                    sx={{
+                        mb:"16px", 
+                        mr:"16px", 
+                        width:"40vw",
+                        fontFamily:"Josefin Sans", 
+                        input:{color:"white",fontFamily:"Josefin Sans"}, 
+                        label:{color:"white",fontFamily:"Josefin Sans"},
+                        "& .MuiOutlinedInput-root":{
+                            "& fieldset":{borderColor:"hsl(234, 39%, 85%)"},
+                            "&: hover fieldset":{borderColor:"hsl(220, 98%, 61%)"},
+
+                        },
+                    }}
 
                 />
                 
@@ -75,11 +98,12 @@ export const TaskForm = () =>{
                     minWidth:"100px",
                     maxWidth:"500px",
                     color:"black",
+                    mt:"20px",
                     backgroundImage: "linear-gradient(to right, hsl(192, 100%, 67%), hsl(280, 87%, 65%))",}}
             >
                 Adicionar Tarefas
             </Button>
-            <FormControlLabel control={<Switch checked={isPersonal} onChange={(e)=>setIsPersonal(e.target.checked)}/>} label="Tarefa Pessoal"/>
+            <FormControlLabel sx={{color: "white",mt:"20px"}} control={<Switch checked={isPersonal} onChange={(e)=>setIsPersonal(e.target.checked)}/>} label="Tarefa Pessoal"/>
 
         </Box>
         

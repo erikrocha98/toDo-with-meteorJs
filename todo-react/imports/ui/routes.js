@@ -5,8 +5,7 @@ import {App} from "./App";
 import {Login} from "./pages/login/login";
 import { NotFound } from "./pages/notFound";
 import { EditPage } from "./pages/edit";
-import { Header } from "./components";
-
+import {Header} from "./components/header";
 
 export default function AppRoutes() {
     return (

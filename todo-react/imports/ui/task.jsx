@@ -21,7 +21,7 @@ export const Task = ({ task, onCheckBoxClick, onDeleteClick, onEditClick, user }
   
 
   return (
-    <Accordion sx={{ width: "100%", mb: 1 }}>
+    <Accordion sx={{ width: "100%", mb: 1, backgroundColor:"hsl(235, 24%, 19%)",color:"white"}}>
       <AccordionSummary expandIcon={<ExpandMoreIcon />}>
         <ListItemAvatar>
           <Avatar sx={{backgroundColor:"green"}}>
@@ -31,16 +31,29 @@ export const Task = ({ task, onCheckBoxClick, onDeleteClick, onEditClick, user }
 
         <Checkbox checked={!!task.isChecked} onClick={() => onCheckBoxClick(task)} />
         
-        <Typography sx={{ textDecoration:task.taskStatus ==="Cadastrada" || task.taskStatus==="Em Andamento"?"none":"line-through" ,flexGrow: 1 }}>{task.text}</Typography>
+        <Typography sx={{ 
+                          textDecoration:task.taskStatus ==="Cadastrada" || task.taskStatus==="Em Andamento"?"none":"line-through",
+                          flexGrow: 1,
+                          color: task.taskStatus === "Cadastrada" || task.taskStatus === "Em Andamento" ? "inherit": "gray"
 
-        <IconButton edge="end" aria-label="edit" onClick={() => onEditClick(task)} sx={{ mr: "10px" }}>
+                          }}>
+          {task.text}
+        </Typography>
+
+        <IconButton edge="end" aria-label="edit" onClick={() => onEditClick(task)} sx={{ mr: "10px", color:"orange" }}>
           <EditIcon />
         </IconButton>
 
         <IconButton edge="end" aria-label="delete" sx={{ mr: "10px" }} color="error" onClick={() => onDeleteClick(task)}>
           <DeleteIcon />
         </IconButton>
-        <Select value={selectedValue} onChange={handleSelectChange}>
+        <Select value={selectedValue} onChange={handleSelectChange} 
+                sx={{
+                  color:"white", 
+                  "& .MuiOutlinedInput-notchedOutline":{borderColor:"white"},
+
+                
+                }}>
             <MenuItem value="Cadastrada">Cadastrada</MenuItem>
             <MenuItem value="Em Andamento">Em Andamento</MenuItem>
             <MenuItem value="Concluída">Concluída</MenuItem>

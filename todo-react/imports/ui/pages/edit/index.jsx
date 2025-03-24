@@ -119,17 +119,23 @@ export const EditPage = () =>{
                 />
             </div>
             <div>
-                <Select sx={{color:"white", fontFamily:"Josefin Sans"}} value={selectedValue} onChange={(e)=>setSelectedValue(e.target.value)}>
+                <Select sx={{
+                    color:"white",
+                    mb:"12px", 
+                    fontFamily:"Josefin Sans",
+                    "& .MuiOutlinedInput-notchedOutline":{borderColor:"white"},
+
+                }} value={selectedValue} onChange={(e)=>setSelectedValue(e.target.value)}>
                     <MenuItem value="Cadastrada">Cadastrada</MenuItem>
                     <MenuItem value="Em Andamento">Em Andamento</MenuItem>
                     <MenuItem value="Concluída">Concluída</MenuItem>
                 </Select>
             </div>
             
-            <Button onClick={()=>navigate(-1)}>
+            <Button onClick={()=>navigate(-1)} color="error" sx={{mr:"20px"}}>
                 Cancelar
             </Button>
-            <Button type="submit">
+            <Button type="submit" sx={{color:"#1976D2"}}>
                 Salvar
             </Button>
             

@@ -13,7 +13,7 @@ const CardBox = styled(Box)`
 
 `
 const ContainerPage = styled(Container)`
-    min-height: 100vh;
+    min-height: 80vh;
     display:flex;
     flex-direction:column;
     justify-content:center;

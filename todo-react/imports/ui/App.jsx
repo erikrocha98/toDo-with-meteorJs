@@ -5,6 +5,25 @@ import { Task } from "./Task";
 import { TaskForm } from "./TaskForm";
 import { Navigate, useNavigate } from "react-router-dom";
 import List from "@mui/material/List";
+import { Button } from "@mui/material";
+import styled from "styled-components";
+
+const ContainerApp = styled.div`
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  color:hsl(234, 11%, 52%);
+`
+const ContainerMain = styled.div`
+  display: flex;
+  flex-direction: column;
+`
+const LogoutButton = styled(Button)`
+  display: flex;
+  align-self: flex-end;
+  margin: 8px 16px 0;
+  font-weight: bold;
+`
 
 export const App = () => {
   const [hideCompleted, setHideCompleted] = useState(false);
@@ -64,22 +83,19 @@ export const App = () => {
   }
 
   return (
-    <div className="app">
-      <div className="main">
+    <ContainerApp>
+      <ContainerMain>
           <Fragment>
-            <div className="user" onClick={logout}>
-                Log out
-            </div>
+            <LogoutButton onClick={logout} sx={{ color: "#D32F2F", "&:hover": { color: "#B71C1C" } }}>
+              Logout
+            </LogoutButton>
+            
             <TaskForm/>
-            <div className="filter">
-              <button onClick={()=>setHideCompleted(!hideCompleted)}>
-                {hideCompleted? 'Show All':'Hide Completed'}
-              </button>
-            </div>
             <List sx={{
                       display:"flex", 
                       flexDirection:"column",
                       width:"100%",
+                      padding:"50px",
                       maxWidth:"1000px",
                       margin:"0 auto",
                       }}
@@ -99,12 +115,15 @@ export const App = () => {
               ))}
               <div>
                 {pendingTasksTitle}
+                <Button onClick={()=>setHideCompleted(!hideCompleted)} sx={{ml:"20px", color:"hsl(234, 11%, 52%)", "&:hover":{color:"white"}}}>
+                  {hideCompleted? 'Mostrar Tudo':'Esconder Tarefas Concluídas'}
+                </Button>
               </div>
               
             </List>
             
           </Fragment>
-      </div>
-    </div>
+      </ContainerMain>
+    </ContainerApp>
   );
 };

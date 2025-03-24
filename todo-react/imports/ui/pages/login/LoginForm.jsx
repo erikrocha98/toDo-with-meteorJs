@@ -9,7 +9,7 @@ const ContainerForm = styled(Box)`
     flex-direction: column;
     justify-content:center;
     align-items: center;
-    min-height: 100vh;
+    min-height: 60vh;
 `
 const BoxForm = styled(Paper)`
     display:flex;
