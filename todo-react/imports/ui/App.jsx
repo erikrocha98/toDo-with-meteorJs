@@ -1,9 +1,9 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { useTracker, useSubscribe} from "meteor/react-meteor-data";
 import { TasksCollection } from "../api/tasksCollection.js";
 import { Task } from "./Task";
 import { TaskForm } from "./TaskForm";
-import { Navigate, useNavigate } from "react-router-dom";
+import {useNavigate } from "react-router-dom";
 import List from "@mui/material/List";
 import { Button } from "@mui/material";
 import styled from "styled-components";
@@ -70,14 +70,8 @@ export const App = () => {
   
   const logout = () => {
     Meteor.logout()
-    setRedirectToLogin(true);
+    navigate("/");
   };
-
-  if (redirectToLogin){
-    return <Navigate to="/"/>
-  }
-
-
   if (isLoading()) {
     return <div>Loading...</div>;
   }

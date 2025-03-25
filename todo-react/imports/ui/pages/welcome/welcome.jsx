@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {Box, Typography, Container, Button, Drawer} from "@mui/material";
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
@@ -13,6 +13,7 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import HomeIcon from '@mui/icons-material/Home';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import ListItemText from "@mui/material/ListItemText";
+import IconButton from "@mui/material/IconButton";
 
 const CardBox = styled(Box)`
     display: grid;
@@ -24,7 +25,8 @@ const ContainerPage = styled(Container)`
     min-height: 75vh;
     display:flex;
     justify-content:center;
-    align-items:center
+    align-items:center;
+    position:relative;
 `
 
 const BoxPage = styled (Box)`
@@ -37,6 +39,7 @@ const BoxPage = styled (Box)`
     align-items:center;
     padding:50px;
     border-radius:20px;
+
 `
 
 export function WelcomePage () {
@@ -45,14 +48,27 @@ export function WelcomePage () {
     const toggleDrawer = (newOpen) => {
         setOpen(newOpen);
     };
+    const navigate = useNavigate();
+
     const DrawerList = (
-        <Box sx={{ width: 250 }} role="presentation" onClick={()=>toggleDrawer(false)}>
+        <Box sx={{ width: 250}} role="presentation" onClick={()=>toggleDrawer(false)}>
           <List>
             {['Home', 'Perfil'].map((text, index) => (
               <ListItem key={text} disablePadding>
-                <ListItemButton>
+                <ListItemButton onClick={(e)=>{
+                        e.stopPropagation();
+                        console.log(`Clicou no ícone: ${text}`);
+                        if(text==='Home'){
+                            navigate("/app");
+                        }
+                        else{
+                            navigate("/profile");
+                        }
+                    }}>
                   <ListItemIcon>
-                    {index % 2 === 0 ? <HomeIcon/> : <AccountCircleIcon/>}
+                    <IconButton >
+                        {index % 2 === 0 ? <HomeIcon/> : <AccountCircleIcon/>}
+                    </IconButton>
                   </ListItemIcon>
                   <ListItemText primary={text} />
                 </ListItemButton>
@@ -63,36 +79,36 @@ export function WelcomePage () {
       );
     return (
         <ContainerPage>
-            <Button onClick={()=>toggleDrawer(true)}>
+            <Button onClick={()=>toggleDrawer(true)} sx={{position:"absolute",top:"0", left:"0"}}>
                 <MenuIcon/>
             </Button>
-            <Drawer open={open} onClose={()=>toggleDrawer(false)}>
+            <Drawer open={open} onClose={()=>toggleDrawer(false)} >
                 {DrawerList}
             </Drawer>
 
             <BoxPage>
-                <Typography variant="h4" sx={{mb:"16px",textAlign:"center"}}>
+                <Typography variant="h4" sx={{mb:"16px",textAlign:"center", fontFamily: "Josephin Sans"}}>
                     Olá, caro usuário, seja bem vindo ao To do feito no meteorJs!
                 </Typography>
-                <CardBox>
+                <CardBox >
                     <Card variant="outlined" sx={{width:"15vw",height:"20vh"}}>
                         <CardContent>
-                            <Typography variant="h5">Total de Tarefas Cadastradas: </Typography>
+                            <Typography variant="h5" sx={{fontFamily:"Josephin Sans"}}>Total de Tarefas Cadastradas: </Typography>
                         </CardContent>
                     </Card>
                     <Card sx={{width:"15vw",height:"20vh"}}>
                         <CardContent>
-                            <Typography variant="h5">Total de Tarefas Concluídas: </Typography>
+                            <Typography variant="h5" sx={{fontFamily:"Josephin Sans"}}>Total de Tarefas Concluídas: </Typography>
                         </CardContent>
                     </Card>
                     <Card sx={{width:"15vw",height:"20vh"}}>
                         <CardContent>
-                            <Typography variant="h5">Total de Tarefas A Serem Concluídas: </Typography>
+                            <Typography variant="h5" sx={{fontFamily:"Josephin Sans"}}>Total de Tarefas A Serem Concluídas: </Typography>
                         </CardContent>
                     </Card>
                     <Card sx={{width:"15vw",height:"20vh"}}>
                         <CardContent>
-                            <Typography variant="h5">Visualisar Tarefas </Typography>
+                            <Typography variant="h5" sx={{fontFamily:"Josephin Sans"}}>Visualisar Tarefas </Typography>
                         </CardContent>
                         <CardActions>
                             <Link to="/App">Clique aqui para ser redirecionado para a lista de tarefas</Link>

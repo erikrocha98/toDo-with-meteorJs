@@ -3,6 +3,7 @@ import { TextField, Select, Box, Button,MenuItem, Container, InputLabel } from "
 import FormControl from '@mui/material/FormControl';
 import styled from "styled-components";
 import Avatar from '@mui/material/Avatar';
+import { Navigate, useNavigate } from "react-router-dom";
 
 const BoxContainer = styled(Box)`
     display: flex;
@@ -16,6 +17,7 @@ const BoxContainer = styled(Box)`
 `
 
 export const UserProfile = () => {
+    const navigate = useNavigate();
   return (
     <Container sx={{display:"flex", justifyContent:"center", alignItems:"center", minHeight:"100vh", position:"relative"}}>
         <Avatar alt="UserImg" src="/assets/ragnar.jpg" sx={{ 
@@ -123,7 +125,7 @@ export const UserProfile = () => {
             }}
             />
         <div>
-            <Button sx={{mr:"50px"}} color="error">Cancelar</Button>
+            <Button sx={{mr:"50px"}} color="error" onClick={()=>navigate(-1)}>Cancelar</Button>
             <Button color="success">Salvar</Button>
         </div>
         
