@@ -12,6 +12,7 @@ const BoxContainer = styled(Box)`
     background:hsl(235, 24%, 19%);
     padding: 50px;
     flex-grow: 1;
+    border-radius:20px;
 `
 
 export const UserProfile = () => {

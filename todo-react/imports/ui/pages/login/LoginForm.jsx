@@ -9,21 +9,19 @@ const ContainerForm = styled(Box)`
     flex-direction: column;
     justify-content:center;
     align-items: center;
-    min-height: 60vh;
+    color:white;
 `
 const BoxForm = styled(Paper)`
     display:flex;
     flex-direction:column;
     justify-content:center;
     align-items:center;
-    height:50vh;
-    width:100%;
-    max-width:500px;
+    flex-grow:1;
+    padding: 50px;
+    margin-top:10px;
 `
-const WelcomeTitle = styled.h1`
-    font-size: 16px;
-    font-weight:400;
-    margin-bottom: 12px;
+const Titulo = styled.h1`
+    margin-bottom:8px;
 `
 
 
@@ -53,10 +51,10 @@ export const LoginForm = () =>{
             autoComplete="off"
             onSubmit={submit}
         >
+            
             <BoxForm elevation={20} sx={{backgroundColor: "hsl(235, 24%, 19%)", color:"white"}}>
-                <WelcomeTitle>
-                    Olá, caro usuário, seja bem vindo ao To do app com meteorJs!
-                </WelcomeTitle>
+                <Titulo>Já possui uma conta ?</Titulo>
+                <h3>Faça seu login abaixo</h3>
                 <div>
                     <TextField
                         required

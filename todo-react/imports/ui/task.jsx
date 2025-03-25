@@ -62,16 +62,16 @@ export const Task = ({ task, onCheckBoxClick, onDeleteClick, onEditClick, user }
       </AccordionSummary>
       
       <AccordionDetails>
-        <Typography sx={{mb:"10px"}} variant="body2" color="textSecondary">
+        <Typography sx={{mb:"10px"}} variant="body2" color="white">
           Criado por: {user.username}
         </Typography>
-        
-        <Chip label={task.isPersonal? "Pessoal": "Não Pessoal"} sx={{mr:"8px"}}/>
-        <Chip label={task.taskStatus??"Sem status"}/>
-        <Typography sx={{mt:"10px"}} variant="body2" color="textSecondary">
-          {task.description ?? "Sem descrição"}
+        <Typography sx={{mb:"10px"}} variant="body2" color="white">
+          Descrição: {task.description ?? "Sem descrição"}
         </Typography>
 
+        <Chip label={task.isPersonal? "Pessoal": "Não Pessoal"} sx={{mr:"8px",backgroundColor:"gray"}}/>
+        <Chip label={task.taskStatus??"Sem status"} sx={{backgroundColor:"gray"}}/>
+        
         
       </AccordionDetails>
       

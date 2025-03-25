@@ -6,7 +6,7 @@ const HeaderImage = styled.header`
     backgorund-repeat: no-repeat;
     background-size: cover;
     background-position: center;
-    height:200px;
+    height:300px;
 
 `
 
