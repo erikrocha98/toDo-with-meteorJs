@@ -28,8 +28,6 @@ const LogoutButton = styled(Button)`
 export const App = () => {
   const [hideCompleted, setHideCompleted] = useState(false);
   const user = useTracker(() => Meteor.user());
-  const [redirectToLogin, setRedirectToLogin] = useState(false);
-
   const isLoading = useSubscribe("tasks");
   const hideCompletedFilter = {isChecked: {$ne: true}};
   const navigate = useNavigate();

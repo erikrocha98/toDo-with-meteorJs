@@ -14,6 +14,9 @@ import HomeIcon from '@mui/icons-material/Home';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import ListItemText from "@mui/material/ListItemText";
 import IconButton from "@mui/material/IconButton";
+import { useTracker,useSubscribe } from "meteor/react-meteor-data";
+import { TasksCollection } from "../../../api/tasksCollection.js";
+
 
 const CardBox = styled(Box)`
     display: grid;
@@ -43,12 +46,25 @@ const BoxPage = styled (Box)`
 `
 
 export function WelcomePage () {
+    const user = useTracker(() => Meteor.user());
+    const isLoading = useSubscribe("tasks");
+    const tasksAdded = {taskStatus: "Cadastrada"};
+    const tasksInProgress = {taskStatus: "Em Andamento"};
+    const tasksFinished= {taskStatus: "Concluída"}
+    const pendingTasksCount= useTracker(()=>{
+    if(!user){
+        return 0;
+    }
+        return TasksCollection.find(tasksAdded).count()
+    });
+    
     const[open, setOpen] = useState(false);
     
     const toggleDrawer = (newOpen) => {
         setOpen(newOpen);
     };
     const navigate = useNavigate();
+    console.log("Usuário logado:", user);
 
     const DrawerList = (
         <Box sx={{ width: 250}} role="presentation" onClick={()=>toggleDrawer(false)}>
@@ -77,6 +93,9 @@ export function WelcomePage () {
           </List>
         </Box>
       );
+    if (isLoading()) {
+        return <div>Loading...</div>;
+    }
     return (
         <ContainerPage>
             <Button onClick={()=>toggleDrawer(true)} sx={{position:"absolute",top:"0", left:"0"}}>
@@ -93,17 +112,17 @@ export function WelcomePage () {
                 <CardBox >
                     <Card variant="outlined" sx={{width:"15vw",height:"20vh"}}>
                         <CardContent>
-                            <Typography variant="h5" sx={{fontFamily:"Josephin Sans"}}>Total de Tarefas Cadastradas: </Typography>
+                            <Typography variant="h5" sx={{fontFamily:"Josephin Sans"}}>Total de Tarefas Cadastradas: {pendingTasksCount} </Typography>
                         </CardContent>
                     </Card>
                     <Card sx={{width:"15vw",height:"20vh"}}>
                         <CardContent>
-                            <Typography variant="h5" sx={{fontFamily:"Josephin Sans"}}>Total de Tarefas Concluídas: </Typography>
+                            <Typography variant="h5" sx={{fontFamily:"Josephin Sans"}}>Total de Tarefas Concluídas: {TasksCollection.find(tasksFinished).count()}</Typography>
                         </CardContent>
                     </Card>
                     <Card sx={{width:"15vw",height:"20vh"}}>
                         <CardContent>
-                            <Typography variant="h5" sx={{fontFamily:"Josephin Sans"}}>Total de Tarefas A Serem Concluídas: </Typography>
+                            <Typography variant="h5" sx={{fontFamily:"Josephin Sans"}}>Total de Tarefas A Serem Concluídas: {TasksCollection.find(tasksInProgress).count()}</Typography>
                         </CardContent>
                     </Card>
                     <Card sx={{width:"15vw",height:"20vh"}}>
