@@ -28,17 +28,30 @@ Meteor.startup(async () => {
     const userId = await Accounts.createUser({
       username: SEED_USERNAME,
       password: SEED_PASSWORD,
+      email:"erik@email.com",
     });
 
     console.log("Usuário criado com ID:", userId);
     user = await Accounts.findUserByUsername(SEED_USERNAME);
-    console.log("Usuário após criação:", user);
   }
 
     // Buscar o usuário novamente após a criação
     user = await Accounts.findUserByUsername(SEED_USERNAME);
-    console.log(Accounts.findUserByUsername("erik"));
 
+    if (!user.name || !user.birthDate || !user.gender || !user.company || !user.photo) {
+      Meteor.users.updateAsync(user._id, {
+        $set: {
+          name: "Erik Rocha",
+          birthDate: new Date("1998-06-15"), 
+          gender: "Masculino",
+          company: "Empresa Exemplo",
+          photo: "", 
+        },
+      });
+      console.log("Perfil do usuário atualizado!");
+    }
+  
+    console.log("Usuário atualizado:", user);
 
   if ((await TasksCollection.find().countAsync()) === 0) {
     [
